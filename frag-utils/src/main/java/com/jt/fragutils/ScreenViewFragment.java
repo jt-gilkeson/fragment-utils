@@ -25,15 +25,7 @@ import android.support.v4.app.Fragment;
  */
 public abstract class ScreenViewFragment extends Fragment
 {
-	private FragmentScreenViewHelper mScreenViewHelper;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		mScreenViewHelper = new FragmentScreenViewHelper();
-	}
+	private FragmentScreenViewHelper mScreenViewHelper = new FragmentScreenViewHelper();
 
 	@Override
 	public void onResume()
