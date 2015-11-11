@@ -16,7 +16,6 @@
 
 package com.jt.fragutils;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 /**
@@ -25,7 +24,7 @@ import android.support.v4.app.Fragment;
  */
 public abstract class ScreenViewFragment extends Fragment
 {
-	private FragmentScreenViewHelper mScreenViewHelper = new FragmentScreenViewHelper();
+	private final FragmentScreenViewHelper mScreenViewHelper = new FragmentScreenViewHelper();
 
 	@Override
 	public void onResume()

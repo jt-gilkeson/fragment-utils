@@ -21,12 +21,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 /**
  * Basic Activity that handles displaying a custom fragment.
  */
 public class SimpleFragmentActivity extends AppCompatActivity
 {
+	private static final String TAG           = "SimpleFragmentActivity";
+
 	private static final String TITLE         = "sfaActivityTitle";
 	private static final String THEME         = "sfaActivityTheme";
 	private static final String FRAGMENT_NAME = "sfaFragmentName";
@@ -37,19 +40,24 @@ public class SimpleFragmentActivity extends AppCompatActivity
 	{
 		Bundle extras = getIntent().getExtras();
 
-		if (extras == null || !extras.containsKey(FRAGMENT_NAME) || !extras.containsKey(FRAGMENT_TAG))
-		{
-			throw new IllegalArgumentException("Missing Fragment Information");
-		}
-
 		// set theme if specified
-		int theme = extras.getInt(THEME);
-		if (theme > 0)
+		if (extras != null)
 		{
-			setTheme(theme);
+			int theme = extras.getInt(THEME);
+			if (theme > 0)
+			{
+				setTheme(theme);
+			}
 		}
 
 		super.onCreate(savedInstanceState);
+
+		if (extras == null || !extras.containsKey(FRAGMENT_NAME) || !extras.containsKey(FRAGMENT_TAG))
+		{
+			Log.e(TAG, "Missing Fragment Information");
+			finish();
+			return;
+		}
 
 		// set title if specified
 		String title = extras.getString(TITLE);
@@ -71,8 +79,8 @@ public class SimpleFragmentActivity extends AppCompatActivity
 
 	public static class IntentBuilder
 	{
-		private Intent mIntent;
-		private String mFragmentName;
+		private final Intent mIntent;
+		private final String mFragmentName;
 		private String mTag;
 
 		/**

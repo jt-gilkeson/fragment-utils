@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="display_mode_phone">0</integer>
+    <integer name="display_mode_tablet">1</integer>
+    <integer name="current_display_mode">@integer/display_mode_phone</integer>
+</resources>

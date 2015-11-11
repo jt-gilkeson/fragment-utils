@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="current_display_mode">@integer/display_mode_tablet</integer>
+</resources>
