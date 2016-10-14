@@ -77,10 +77,11 @@ public class SimpleFragmentActivity extends AppCompatActivity
 		}
 	}
 
-	public static class IntentBuilder
+	public static class IntentBuilder implements TitleStringBuilder, TitleResourceBuilder
 	{
-		private final Intent mIntent;
-		private final String mFragmentName;
+		private Context mContext;
+		private Intent mIntent;
+		private String mFragmentName;
 		private String mTag;
 
 		/**
@@ -104,6 +105,7 @@ public class SimpleFragmentActivity extends AppCompatActivity
 		 */
 		public IntentBuilder(Context context, Class<?> activityClass, Class<?> fragmentClass)
 		{
+			mContext = context;
 			mIntent = new Intent(context, activityClass);
 			mFragmentName = fragmentClass.getName();
 		}
@@ -113,9 +115,22 @@ public class SimpleFragmentActivity extends AppCompatActivity
 		 *
 		 * @return This Builder object to allow for chaining of calls to set methods
 		 */
-		public IntentBuilder setTitle(String title)
+		@Override
+		public TitleStringBuilder setTitle(String title)
 		{
 			mIntent.putExtra(TITLE, title);
+			return this;
+		}
+
+		/**
+		 * Set the title using the specified resource id.
+		 *
+		 * @return This Builder object to allow for chaining of calls to set methods
+		 */
+		@Override
+		public TitleResourceBuilder setTitle(int title)
+		{
+			mIntent.putExtra(TITLE, mContext.getString(title));
 			return this;
 		}
 
@@ -124,6 +139,7 @@ public class SimpleFragmentActivity extends AppCompatActivity
 		 *
 		 * @return This Builder object to allow for chaining of calls to set methods
 		 */
+		@Override
 		public IntentBuilder setTheme(int themeId)
 		{
 			mIntent.putExtra(THEME, themeId);
@@ -135,6 +151,7 @@ public class SimpleFragmentActivity extends AppCompatActivity
 		 *
 		 * @return This Builder object to allow for chaining of calls to set methods
 		 */
+		@Override
 		public IntentBuilder setFragmentTag(String tag)
 		{
 			mTag = tag;
@@ -147,11 +164,29 @@ public class SimpleFragmentActivity extends AppCompatActivity
 		 *  the user to add additional extras before starting the activity.  It also allows the user to
 		 *  decide whether to startActivity or startActivityForResult with this intent.
 		 */
+		@Override
 		public Intent create()
 		{
 			mIntent.putExtra(FRAGMENT_NAME, mFragmentName);
 			mIntent.putExtra(FRAGMENT_TAG, mTag == null ? mFragmentName : mTag);
 			return mIntent;
 		}
+	}
+
+	// These interfaces prevent setting title as both a string and an int
+	public interface TitleStringBuilder
+	{
+		TitleStringBuilder setTitle(String title);
+		TitleStringBuilder setTheme(int themeId);
+		TitleStringBuilder setFragmentTag(String tag);
+		Intent create();
+	}
+
+	public interface TitleResourceBuilder
+	{
+		TitleResourceBuilder setTitle(int titleResource);
+		TitleResourceBuilder setTheme(int themeId);
+		TitleResourceBuilder setFragmentTag(String tag);
+		Intent create();
 	}
 }

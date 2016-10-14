@@ -26,7 +26,7 @@ The IntentBuilder allows you to customize the activity's title, theme, and fragm
 	Intent testIntent = new SimpleFragmentActivity.IntentBuilder(this, Fragment.class)
 			.setFragmentTag("MyTag")
 			.setTheme(R.style.AppTheme)
-			.setTitle(getString(R.string.app_name))
+			.setTitle(R.string.app_name) // or .setTitle("title")
 			.create();
 	
 	testIntent.putExtra("MyArgument", "MyValue");
