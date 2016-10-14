@@ -16,7 +16,9 @@
 
 package com.jt.fragutils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
@@ -30,8 +32,8 @@ public class DisplayHelper
 	private final int DISPLAY_MODE_PHONE;
 	private final int DISPLAY_MODE_TABLET;
 
-	private final int mDisplayMode;
-	private final int mOrientation;
+	private int mDisplayMode;
+	private int mOrientation;
 
 	public DisplayHelper(Context context)
 	{
@@ -57,5 +59,27 @@ public class DisplayHelper
 	public boolean isTabletPortrait()
 	{
 		return mDisplayMode == DISPLAY_MODE_TABLET && mOrientation == Configuration.ORIENTATION_PORTRAIT;
+	}
+
+	public static boolean forcePortraitForPhone(Activity activity)
+	{
+		DisplayHelper displayHelper = new DisplayHelper(activity);
+
+		if (!displayHelper.isTablet())
+		{
+			// lock screen to portrait for phones
+			activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			return true;
+		}
+
+		return false;
+	}
+
+	public static void restoreNormalRotation(Activity activity)
+	{
+		if (activity != null)
+		{
+			activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		}
 	}
 }
