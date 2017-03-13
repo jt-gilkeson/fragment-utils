@@ -5,11 +5,11 @@ Small library of classes useful for dealing with fragments
 Add the following dependency to your build.gradle file
 ```xml
 	repositories {
-	    maven { url "https://jitpack.io" }
+		maven { url "https://jitpack.io" }
 	}
 	
 	dependencies {
-	        compile 'com.github.jt-gilkeson:fragment-utils:1.0'
+		compile 'com.github.jt-gilkeson:fragment-utils:1.0'
 	}
 ```
 
