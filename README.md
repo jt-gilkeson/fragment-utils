@@ -1,6 +1,18 @@
 # fragment-utils
 Small library of classes useful for dealing with fragments
 
+### Installation
+Add the following dependency to your build.gradle file
+```xml
+	repositories {
+	    maven { url "https://jitpack.io" }
+	}
+	
+	dependencies {
+	        compile 'com.github.jt-gilkeson:fragment-utils:1.0'
+	}
+```
+
 ## SimpleFragmentActivity
 Basic Activity that handles displaying a custom fragment.
 
