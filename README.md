@@ -86,7 +86,7 @@ Call static methods from DisplayHelper
 		// Lock the orientation for phones
 		DisplayHelper.forcePortraitForPhone(getActivity());
 		
-		// Use a different layout manager for a tablet in landscape mode vs portrait
+		// Use a different layout manager for a tablet in landscape mode vs any device in portrait mode
 		if (displayHelper.isTabletLandscape())
 		{
 			// Two columns for tablet landscape
