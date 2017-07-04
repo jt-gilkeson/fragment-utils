@@ -72,3 +72,29 @@ public CustomFragment extends ScreenViewFragment
 	}
 }
 ```
+
+## DisplayHeper
+Utility class that has useful functions for dealing with Tablet vs Phone orietation issues.
+
+### How to use it
+Call static methods from DisplayHelper
+
+```java
+	@Override
+	protected void onCreate()
+	{
+		// Lock the orientation for phones
+		DisplayHelper.forcePortraitForPhone(getActivity());
+		
+		// Use a different layout manager for a tablet in landscape mode vs portrait
+		if (displayHelper.isTabletLandscape())
+		{
+			// Two columns for tablet landscape
+			layoutManager = new GridLayoutManager(getContext(), 2);
+		}
+		else
+		{
+			layoutManager = new LinearLayoutManager(getContext());
+		}
+	}
+```
