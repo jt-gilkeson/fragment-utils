@@ -46,7 +46,7 @@ The IntentBuilder allows you to customize the activity's title, theme, and fragm
 	startActivity(testIntent);
 ```
 
-You can also set a listener for navigation (back pressed or home pressed).
+You can also set a listener in your fragment for navigation (back pressed or home pressed).
 
 ```java
 	@Override
