@@ -22,18 +22,27 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 /**
  * Basic Activity that handles displaying a custom fragment.
  */
 public class SimpleFragmentActivity extends AppCompatActivity
 {
+	public interface FragmentNavigationListener
+	{
+		boolean onBackPressed();
+		boolean onHomePressed();
+	}
+
 	private static final String TAG           = "SimpleFragmentActivity";
 
 	private static final String TITLE         = "sfaActivityTitle";
 	private static final String THEME         = "sfaActivityTheme";
 	private static final String FRAGMENT_NAME = "sfaFragmentName";
 	private static final String FRAGMENT_TAG  = "sfaFragmentTag";
+
+	protected FragmentNavigationListener mNavigationListener = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -75,6 +84,41 @@ public class SimpleFragmentActivity extends AppCompatActivity
 					.add(android.R.id.content, frag, extras.getString(FRAGMENT_TAG))
 					.commit();
 		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// See if we have a back listener
+		if (item.getItemId() == android.R.id.home && mNavigationListener != null)
+		{
+			if (mNavigationListener.onHomePressed())
+			{
+				return true;
+			}
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		// See if the listener wants to handle this event
+		if (mNavigationListener != null)
+		{
+			if (mNavigationListener.onBackPressed())
+			{
+				return;
+			}
+		}
+
+		super.onBackPressed();
+	}
+
+	public void setNavigationListener(FragmentNavigationListener listener)
+	{
+		mNavigationListener = listener;
 	}
 
 	public static class IntentBuilder implements TitleStringBuilder, TitleResourceBuilder

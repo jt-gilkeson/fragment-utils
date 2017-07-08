@@ -46,6 +46,39 @@ The IntentBuilder allows you to customize the activity's title, theme, and fragm
 	startActivity(testIntent);
 ```
 
+You can also set a listener for navigation (back pressed or home pressed).
+
+```java
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		// Get our parent activity
+		SimpleFragmentActivity activity = (SimpleFragmentActivity)getActivity();
+		activity.setNavigationListener(new FragmentNavigationListener()
+		{
+			@Override
+			public boolean onBackPressed()
+			{
+				if (condition)
+				{
+					// Intercept the back button
+					return true;
+				}
+
+				return false;
+			}
+
+			@Override
+			public boolean onHomePressed()
+			{
+				return false;
+			}
+		});
+	...
+	}
+```
+
+
 #### Subclassing
 You can also subclass this activity and use the IntentBuilder constructor that takes in the subclass (this allows you to customize the subclass's style, label, usage restrictions, etc in AndroidManifest).
 
