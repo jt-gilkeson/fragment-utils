@@ -46,21 +46,6 @@ public class DisplayHelper
 		mOrientation = res.getConfiguration().orientation;
 	}
 
-	public boolean isTablet()
-	{
-		return mDisplayMode == DISPLAY_MODE_TABLET;
-	}
-
-	public boolean isTabletLandscape()
-	{
-		return mDisplayMode == DISPLAY_MODE_TABLET && mOrientation == Configuration.ORIENTATION_LANDSCAPE;
-	}
-
-	public boolean isTabletPortrait()
-	{
-		return mDisplayMode == DISPLAY_MODE_TABLET && mOrientation == Configuration.ORIENTATION_PORTRAIT;
-	}
-
 	public static boolean forcePortraitForPhone(Activity activity)
 	{
 		DisplayHelper displayHelper = new DisplayHelper(activity);
@@ -81,5 +66,20 @@ public class DisplayHelper
 		{
 			activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 		}
+	}
+
+	public boolean isTablet()
+	{
+		return mDisplayMode == DISPLAY_MODE_TABLET;
+	}
+
+	public boolean isTabletLandscape()
+	{
+		return mDisplayMode == DISPLAY_MODE_TABLET && mOrientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+	public boolean isTabletPortrait()
+	{
+		return mDisplayMode == DISPLAY_MODE_TABLET && mOrientation == Configuration.ORIENTATION_PORTRAIT;
 	}
 }
